@@ -1,0 +1,95 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - url: http://api.jamma.cn/userbind
+info:
+  version: "2.0.0"
+  title: jm-userbin-api
+  description: 用户绑定系统API
+paths:
+  /binds/{id}:
+    put:
+      description: 绑定用户
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BindUser'
+      responses:
+        '200':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetBindUser'
+    get:
+      description: 获取绑定用户
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetBindUser'
+    delete:
+      description: 解除绑定用户
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetBindUser'
+  /bindeds/{id}:
+    get:
+      description: 查询指定用户是否被绑定
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetBindUser'
+components:
+  schemas:
+    BindUser:
+      type: object
+      properties:
+        bindId:
+          type: string
+          example: 'idbinded'
+      description: 绑定用户信息
+    RetBindUser:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'id'
+        bindId:
+          type: string
+          example: 'idbinded'
+      description: 绑定用户结果信息

@@ -1,6 +1,12 @@
-# server-template
+# userbind
 
-服务器模板
+用户绑定服务
+
+## features
+
+- 同一个用户只能绑定或者被绑定一次
+
+- 用户不能绑定自己
 
 ## <a name="环境变量">环境变量</a>
 
@@ -31,4 +37,4 @@
 
 | 配置项 | 默认值 | 描述 |
 | :-: | :-: | :-: |
-|gateway| [] | Gateway服务器Uri |
+|redis| [] | redis服务器Uri |
