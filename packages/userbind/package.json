@@ -7,7 +7,9 @@
     "test": "jest"
   },
   "author": "Jeff YU",
-  "dependencies": {},
+  "dependencies": {
+    "ioredis": "^4.14.1"
+  },
   "jest": {
     "testEnvironment": "node"
   }
