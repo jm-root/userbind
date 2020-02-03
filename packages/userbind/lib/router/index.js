@@ -6,15 +6,7 @@ const ms = new MS()
 
 module.exports = function (service) {
   const router = ms.router()
-  const { userBind, gateway } = service
-
-  async function helpInfo (opts) {
-    console.log(gateway)
-    await gateway.bind('config')
-    const doc = await gateway.get('/')
-    doc.modules.config = await gateway.config.get('/')
-    return doc
-  }
+  const { userBind } = service
 
   async function getBindUser (opts) {
     const { id } = opts.params
@@ -51,8 +43,6 @@ module.exports = function (service) {
     const bindId = await userBind.unBindUser(id)
     return { id, bindId }
   }
-
-  router.add('/', 'get', helpInfo)
 
   router.add('/binds/:id', 'get', getBindUser)
   router.add('/bindeds/:id', 'get', getBoundUser)
