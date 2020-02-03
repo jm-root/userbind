@@ -1,14 +1,11 @@
-const Redis = require('ioredis')
 const config = require('config')
+const UserBind = require('./userbind')
 
 module.exports = class extends require('service') {
   constructor (opts = {}) {
     super(opts)
     this.emit('ready')
-    this.redis = new Redis(config.redis)
-    this.redis.on('error', err => console.error(err))
-    this.redis.on('connect', () => console.log('redis db connect'))
-    this.redis.on('ready', () => console.log('redis db ready'))
+    this.userBind = new UserBind(config.redis)
   }
 
   router (opts) {
