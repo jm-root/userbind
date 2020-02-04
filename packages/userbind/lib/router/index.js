@@ -45,7 +45,7 @@ module.exports = function (service) {
     id: { type: 'string', min: 1, max: 500, optional: false }
   }, getBindUser))
 
-  router.add('/bindeds/:id', 'get', validatorMiddleware({
+  router.add('/bounds/:id', 'get', validatorMiddleware({
     id: { type: 'string', min: 1, max: 500, optional: false }
   }, getBoundUser))
 

@@ -58,7 +58,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RetBindUser'
-  /bindeds/{id}:
+  /bounds/{id}:
     get:
       description: 查询指定用户是否被绑定
       parameters:
@@ -81,7 +81,7 @@ components:
       properties:
         bindId:
           type: string
-          example: 'idbinded'
+          example: 'idbound'
       description: 绑定用户信息
     RetBindUser:
       type: object
@@ -91,5 +91,5 @@ components:
           example: 'id'
         bindId:
           type: string
-          example: 'idbinded'
+          example: 'idbound'
       description: 绑定用户结果信息
