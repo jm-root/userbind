@@ -24,7 +24,7 @@ class UserBind {
    * @returns {string} redis的key
    */
   getBoundKey (id) {
-    return `${this.prefix}:bound:bindId`
+    return `${this.prefix}:bound:${id}`
   }
 
   /**
