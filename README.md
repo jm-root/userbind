@@ -42,7 +42,7 @@
 ### 数据库存储说明
 示例： A用户绑定B用户
 
-- 绑定记录：redis的key`userbind:A` 对应的值为`B`
-- 被绑定记录：redis的key`userbind:bound:B`对应的值为`A`
+- 绑定记录：redis的键为：`userbind:A`，对应的值为 `B`
+- 被绑定记录：redis的键为：`userbind:bound:B`，对应的值为 `A`
 
 绑定记录与被绑定记录，同时存在，同时消失
