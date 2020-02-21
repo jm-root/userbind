@@ -1,5 +1,4 @@
 module.exports = {
-  gateway: 'gateway',
   redis: 'redis',
   service_name: 'userbind',
   modules: {

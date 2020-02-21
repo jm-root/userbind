@@ -1,21 +1,31 @@
+# 约定
+# schema定义名称大写字母开头代表一个对象类型，小写字母开头代表一个基本类型
+# 例如 Role表示{id:'guest'} role表示'guest'
+# Roles表示[{id:'guest'}] roles表示['guest']
 openapi: 3.0.0
-# Added by API Auto Mocking Plugin
 servers:
-  - url: http://api.jamma.cn/userbind
+  - url: 'http://localhost:3000/userbind'
+  - url: 'https://api.jamma.cn/userbind'
 info:
-  version: "2.0.0"
-  title: jm-userbin-api
-  description: 用户绑定系统API
+  version: 1.0.0
+  title: userbind
+  description: 用户绑定API
+  contact:
+    name: jeff
+    url: 'https://github.com/jammacn'
+    email: jeff@jamma.cn
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  url: 'https://github.com/jm-root/userbind'
 paths:
   /binds/{id}:
     put:
+      summary: 绑定用户
       description: 绑定用户
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/id'
       requestBody:
         content:
           application/json:
@@ -23,59 +33,59 @@ paths:
               $ref: '#/components/schemas/BindUser'
       responses:
         '200':
-          description: 更新成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetBindUser'
+          $ref: '#/components/responses/RetBindUser'
+        default:
+          $ref: '#/components/responses/Err'
     get:
-      description: 获取绑定用户
+      summary: 查询绑定用户
+      description: 查询绑定用户
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetBindUser'
+          $ref: '#/components/responses/RetBindUser'
+        default:
+          $ref: '#/components/responses/Err'
     delete:
+      summary: 解除绑定用户
       description: 解除绑定用户
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetBindUser'
+          $ref: '#/components/responses/RetBindUser'
+        default:
+          $ref: '#/components/responses/Err'
   /bounds/{id}:
     get:
+      summary: 查询被绑定
       description: 查询指定用户是否被绑定
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/id'
       responses:
         '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetBindUser'
+          $ref: '#/components/responses/RetBindUser'
+        default:
+          $ref: '#/components/responses/Err'
 components:
   schemas:
+    Err:
+      type: object
+      properties:
+        err:
+          type: integer
+          format: int32
+          example: 1
+          description: 错误编码
+        msg:
+          type: string
+          example: Fail
+          description: 错误信息
+        status:
+          type: integer
+          format: int32
+          example: 500
+          description: 状态码
     BindUser:
       type: object
       properties:
@@ -93,3 +103,31 @@ components:
           type: string
           example: 'idbound'
       description: 绑定用户结果信息
+  parameters:
+    id:
+      name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+      examples:
+        user:
+          $ref: '#/components/examples/id'
+  responses:
+    Err:
+      description: 返回错误
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Err'
+    RetBindUser:
+      description: 返回绑定关系
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetBindUser'
+  examples:
+    id:
+      summary: 用户
+      value: '5d9d5af874050000c7006b43'
