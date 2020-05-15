@@ -83,7 +83,7 @@ class UserBind {
 
   /**
    * @description 解绑用户
-   * @param {sting} id 用户ID
+   * @param {string} id 用户ID
    * @returns {string} bindId 被绑定者ID
    * @memberof UserBind
    */
@@ -94,6 +94,21 @@ class UserBind {
 
     await Promise.all([bindKey, boundKey].map(el => this.redis.del(el)))
     return bindId
+  }
+
+  /**
+   * @description 解绑用户
+   * @param {string} bindId 被绑定者ID
+   * @returns {string} id 用户ID
+   * @memberof UserBind
+   */
+  async unBoundUser (bindId) {
+    const boundKey = this.getBoundKey(bindId)
+    const id = await this.redis.get(boundKey)
+    const bindKey = this.getBindKey(id)
+
+    await Promise.all([bindKey, boundKey].map(el => this.redis.del(el)))
+    return id
   }
 }
 

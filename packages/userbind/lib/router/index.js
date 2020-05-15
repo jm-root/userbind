@@ -41,6 +41,12 @@ module.exports = function (service) {
     return { id, bindId }
   }
 
+  async function unBoundUser (opts) {
+    const { id: bindId } = opts.params
+    const id = await userBind.unBoundUser(bindId)
+    return { id, bindId }
+  }
+
   router.add('/binds/:id', 'get', validatorMiddleware({
     id: { type: 'string', min: 1, max: 500, optional: false }
   }, getBindUser))
@@ -57,5 +63,9 @@ module.exports = function (service) {
   router.add('/binds/:id', 'delete', validatorMiddleware({
     id: { type: 'string', min: 1, max: 500, optional: false }
   }, unBindUser))
+
+  router.add('/bounds/:id', 'delete', validatorMiddleware({
+    id: { type: 'string', min: 1, max: 500, optional: false }
+  }, unBoundUser))
   return router
 }
